@@ -90,6 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79865733d6f1d4e4282b449a6532df89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thumbStickTrans: {fileID: 1524407303163153576}
+  backgroundTrans: {fileID: 3961174698906765068}
+  centerTrans: {fileID: 4642931988404869163}
 --- !u!1 &1684149740340901205
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +152,7 @@ GameObject:
   - component: {fileID: 3926921288771061894}
   - component: {fileID: 2421118172761263621}
   m_Layer: 5
-  m_Name: BG (1)
+  m_Name: Thumbstick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
