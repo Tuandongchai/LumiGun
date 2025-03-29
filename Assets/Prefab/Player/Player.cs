@@ -9,17 +9,22 @@ public class Player : MonoBehaviour
     [SerializeField] JoyStick aimStick;
     [SerializeField] float moveSpeed = 20f;
     [SerializeField] float turnSpeed = 30f;
+    [SerializeField] float animTurnSpeed = 15f;
     private CharacterController characterController;
     Vector2 moveInput;
     Vector2 aimInput;
 
     [SerializeField] Camera mainCam;
     CameraController cameraController;
+    Animator animator;
+
+    float animatorTurnSpeed;
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         mainCam = Camera.main;
         cameraController = FindObjectOfType<CameraController>();
+        animator = GetComponent<Animator>();
     }
     private void OnEnable()
     {
@@ -63,6 +68,12 @@ public class Player : MonoBehaviour
         characterController.Move(moveDir * Time.deltaTime * moveSpeed);
 
         UpdateAim(moveDir);
+
+        float forward = Vector3.Dot(moveDir, transform.forward);
+        float right = Vector3.Dot(moveDir, transform.right);
+
+        animator.SetFloat("forwardSpeed", forward);
+        animator.SetFloat("rightSpeed", right);
     }
 
     private void UpdateAim(Vector3 moveDir)
@@ -86,11 +97,21 @@ public class Player : MonoBehaviour
 
     private void RotateTowards(Vector3 aimDir)
     {
+        float currentTurnSpeed = 0;
         if (aimDir.magnitude != 0)
         {
+            Quaternion prevRot = transform.rotation;
+
             float turnLerpAlpha = turnSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(aimDir, Vector3.up), turnLerpAlpha);
 
+            Quaternion currentRot = transform.rotation;
+            float Dir = Vector3.Dot(aimDir, transform.right)>0 ? 1: -1;
+            float rotationDelta = Quaternion.Angle(prevRot, currentRot)*Dir;
+            currentTurnSpeed = rotationDelta / Time.deltaTime;
         }
+        animatorTurnSpeed = Mathf.Lerp(animatorTurnSpeed, currentTurnSpeed, Time.deltaTime * animTurnSpeed);
+        animator.SetFloat("turnSpeed", animatorTurnSpeed);
+        Debug.Log(animatorTurnSpeed);
     }
 }
