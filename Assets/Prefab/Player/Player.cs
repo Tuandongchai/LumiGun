@@ -11,6 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField] float turnSpeed = 30f;
     [SerializeField] float animTurnSpeed = 15f;
     private CharacterController characterController;
+
+    [Header("Inventory")]
+    [SerializeField] InventoryComponent inventoryComponent;
+
     Vector2 moveInput;
     Vector2 aimInput;
 
@@ -30,20 +34,35 @@ public class Player : MonoBehaviour
     {
         moveStick.onStickInputValueUpdated += MoveStickUpdated;
         aimStick.onStickInputValueUpdated += AimStickUpdated;
+        aimStick.onStickTaped += StartSwichWeapon;
 
     }
-
-
     private void OnDisable()
     {
         
         moveStick.onStickInputValueUpdated -= MoveStickUpdated;
         aimStick.onStickInputValueUpdated -= AimStickUpdated;
+        aimStick.onStickTaped -= StartSwichWeapon;
+    }
+    private void StartSwichWeapon()
+    {
+        animator.SetTrigger("switchWeapon");
+
+    }
+    public void SwichWeapon()
+    {
+        inventoryComponent.NextWeapon();
     }
 
     private void AimStickUpdated(Vector2 inputVal)
     {
         aimInput = inputVal;
+        if (aimInput.magnitude > 0)
+        {
+            animator.SetBool("attacking", true);
+        }
+        else
+            animator.SetBool("attacking", false);
     }
     private void MoveStickUpdated(Vector2 inputValue)
     {
