@@ -11,9 +11,8 @@ public class AimComponent : MonoBehaviour
     public GameObject GetAimTarget()
     {
         Vector3 aimStart = muzzle.position;
-        Vector3 aimDir = muzzle.forward;
 
-        if(Physics.Raycast(aimStart, aimDir, out RaycastHit hitInfo, aimRange, aimMask))
+        if(Physics.Raycast(aimStart, GetAimDir(), out RaycastHit hitInfo, aimRange, aimMask))
         {
             return hitInfo.collider.gameObject;
         }
@@ -21,7 +20,11 @@ public class AimComponent : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(muzzle.position, muzzle.position+muzzle.forward*aimRange);
+        Gizmos.DrawLine(muzzle.position, muzzle.position+GetAimDir()*aimRange);
     }
-
+    private Vector3 GetAimDir()
+    {
+        Vector3 muzzleDir = muzzle.forward;
+        return new Vector3(muzzleDir.x, 0f , muzzleDir.z).normalized;
+    }
 }

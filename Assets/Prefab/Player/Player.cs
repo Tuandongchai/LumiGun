@@ -44,6 +44,11 @@ public class Player : MonoBehaviour
         aimStick.onStickInputValueUpdated -= AimStickUpdated;
         aimStick.onStickTaped -= StartSwichWeapon;
     }
+    public void AttackPoint()
+    {
+        inventoryComponent.GetActiveWeapon().Attack();
+    }
+
     private void StartSwichWeapon()
     {
         animator.SetTrigger("switchWeapon");
@@ -131,6 +136,5 @@ public class Player : MonoBehaviour
         }
         animatorTurnSpeed = Mathf.Lerp(animatorTurnSpeed, currentTurnSpeed, Time.deltaTime * animTurnSpeed);
         animator.SetFloat("turnSpeed", animatorTurnSpeed);
-        Debug.Log(animatorTurnSpeed);
     }
 }
