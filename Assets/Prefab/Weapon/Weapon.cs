@@ -35,6 +35,6 @@ public abstract class Weapon : MonoBehaviour
     public void DamageGameObject(GameObject objToDamage, float amt)
     {
         HealthComponent healthComp = objToDamage.GetComponent<HealthComponent>();
-        healthComp?.ChangeHealth(-amt);
+        healthComp?.ChangeHealth(-amt, owner);
     }
 }
