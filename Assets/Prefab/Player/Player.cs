@@ -3,17 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ITeamInterface
 {
     [SerializeField] JoyStick moveStick;
     [SerializeField] JoyStick aimStick;
     [SerializeField] float moveSpeed = 20f;
-    [SerializeField] float turnSpeed = 30f;
     [SerializeField] float animTurnSpeed = 15f;
     private CharacterController characterController;
+    [SerializeField] MovementComponent movementComponent;
+    [SerializeField] int TeamID = 1;
 
     [Header("Inventory")]
     [SerializeField] InventoryComponent inventoryComponent;
+
+    [Header("HeathAndDamage")]
+    [SerializeField] HealthComponent healthComponent;
+    [SerializeField] PlayerHealthBar healthBar;
+
+    [Header("UI")]
+    [SerializeField] UIManager uiManager;
 
     Vector2 moveInput;
     Vector2 aimInput;
@@ -23,27 +31,51 @@ public class Player : MonoBehaviour
     Animator animator;
 
     float animatorTurnSpeed;
+
+    public int GetTeamID()
+    {
+        return TeamID;
+    }
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
         mainCam = Camera.main;
         cameraController = FindObjectOfType<CameraController>();
         animator = GetComponent<Animator>();
+        healthComponent.BroadcastHealthValueImmediately();
     }
     private void OnEnable()
     {
         moveStick.onStickInputValueUpdated += MoveStickUpdated;
         aimStick.onStickInputValueUpdated += AimStickUpdated;
         aimStick.onStickTaped += StartSwichWeapon;
+        healthComponent.onHealthChange += HealthChanged;
+        healthComponent.onHealthEmpty += StartDeathSequence;
 
     }
     private void OnDisable()
-    {
+    {   
         
         moveStick.onStickInputValueUpdated -= MoveStickUpdated;
         aimStick.onStickInputValueUpdated -= AimStickUpdated;
         aimStick.onStickTaped -= StartSwichWeapon;
+
+        healthComponent.onHealthChange -= HealthChanged;
+        healthComponent.onHealthEmpty -= StartDeathSequence;
     }
+
+    private void StartDeathSequence()
+    {
+        animator.SetLayerWeight(2, 1);
+        animator.SetTrigger("Death");
+        uiManager.SetGameplayControlEnabled(false);
+    }
+
+    private void HealthChanged(float health, float delta, float maxHealth)
+    {
+        healthBar.UpdateHealth(health,delta, maxHealth);
+    }
+
     public void AttackPoint()
     {
         inventoryComponent.GetActiveWeapon().Attack();
@@ -98,6 +130,8 @@ public class Player : MonoBehaviour
 
         animator.SetFloat("forwardSpeed", forward);
         animator.SetFloat("rightSpeed", right);
+
+        characterController.Move(Vector3.down * Time.deltaTime * 10f);
     }
 
     private void UpdateAim(Vector3 moveDir)
@@ -121,19 +155,8 @@ public class Player : MonoBehaviour
 
     private void RotateTowards(Vector3 aimDir)
     {
-        float currentTurnSpeed = 0;
-        if (aimDir.magnitude != 0)
-        {
-            Quaternion prevRot = transform.rotation;
-
-            float turnLerpAlpha = turnSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(aimDir, Vector3.up), turnLerpAlpha);
-
-            Quaternion currentRot = transform.rotation;
-            float Dir = Vector3.Dot(aimDir, transform.right)>0 ? 1: -1;
-            float rotationDelta = Quaternion.Angle(prevRot, currentRot)*Dir;
-            currentTurnSpeed = rotationDelta / Time.deltaTime;
-        }
+        float currentTurnSpeed = movementComponent.RotateTowards(aimDir);
+        
         animatorTurnSpeed = Mathf.Lerp(animatorTurnSpeed, currentTurnSpeed, Time.deltaTime * animTurnSpeed);
         animator.SetFloat("turnSpeed", animatorTurnSpeed);
     }

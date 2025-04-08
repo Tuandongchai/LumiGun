@@ -16,6 +16,11 @@ public class HealthComponent : MonoBehaviour
     public event OnTakeDamage onTakeDamage;
     public event OnHealthEmpty onHealthEmpty;
 
+    public void BroadcastHealthValueImmediately()
+    {
+        onHealthChange?.Invoke(health, 0, maxHealth);
+    }
+
     public void ChangeHealth(float amt, GameObject instigator)
     {
         if (amt == 0 || health ==0)
