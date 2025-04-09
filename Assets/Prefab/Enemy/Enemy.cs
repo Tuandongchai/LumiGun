@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterface
+public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterface, ISpawnInterface
 {
     [SerializeField] HealthComponent healthComponent;
     [SerializeField] Animator animator;
@@ -23,9 +23,13 @@ public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterf
         get { return animator; }
         private set { animator = value; }
     }
-    private void OnEnable()
+    private void Awake()
     {
         perceptionComp.onPerceptionTargetChanged += TargetChanged;
+        
+    }
+    private void OnEnable()
+    {
         if (healthComponent == null)
             return;
         healthComponent.onHealthEmpty += StartDeath;
@@ -50,6 +54,8 @@ public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterf
 
     private void CalculateSpeed()
     {
+        if (movementComponent == null) return;
+
         Vector3 posDelta = transform.position - prevPos;
         float speed = posDelta.magnitude / Time.deltaTime;
 
@@ -86,6 +92,7 @@ public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterf
     }
     public void OnDeathAnimationFinished()
     {
+        Dead();
         Destroy(gameObject);
     }
 
@@ -112,5 +119,22 @@ public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterf
     public virtual void AttackTarget(GameObject target)
     {
         
+    }
+
+    public void SpawnedBy(GameObject spawnerGameobject)
+    {
+        BehaviorTree spawnerBehaviorTree = spawnerGameobject.GetComponent<BehaviorTree>();
+        if(spawnerBehaviorTree != null && spawnerBehaviorTree.Blackboard.GetBlackboardData<GameObject>("Target", out GameObject spawnerTarget))
+        {
+            PerceptionStimuli targetStimuli = spawnerTarget.GetComponent<PerceptionStimuli>();
+            if(perceptionComp && targetStimuli)
+            {
+                perceptionComp.AssignPercievedStimuli(targetStimuli);
+            }
+        }
+    }
+    protected virtual void Dead()
+    {
+
     }
 }

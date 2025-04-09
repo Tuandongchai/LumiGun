@@ -13,12 +13,16 @@ public class PerceptionComponent : MonoBehaviour
     public delegate void OnPerceptionTargetChanged(GameObject target, bool sensed);
     public event OnPerceptionTargetChanged onPerceptionTargetChanged;
 
-    private void Start()
+    private void Awake()
     {
         foreach (SenseComponent sense in senses)
         {
             sense.onPerceptionUpdate += SenseUpdated;
         }
+        
+    }
+    private void Start()
+    {
     }
 
     private void SenseUpdated(PerceptionStimuli stimuli, bool successfulySensed)
@@ -55,6 +59,14 @@ public class PerceptionComponent : MonoBehaviour
                 onPerceptionTargetChanged?.Invoke(targetStimuli.gameObject, false);
                 targetStimuli = null;
             }
+        }
+    }
+
+    internal void AssignPercievedStimuli(PerceptionStimuli targetStimuli)
+    {
+        if(senses.Length !=0)
+        {
+            senses[0].AssignPerceivedStimuli(targetStimuli);
         }
     }
 }

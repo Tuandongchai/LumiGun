@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,6 +56,18 @@ public abstract class SenseComponent : MonoBehaviour
             }
         }
     }
+    internal void AssignPerceivedStimuli(PerceptionStimuli targetStimuli)
+    {
+        perceptionStimulis.Add(targetStimuli);
+        onPerceptionUpdate?.Invoke(targetStimuli, true);
+
+        if(forgettingRoutines.TryGetValue(targetStimuli,out Coroutine _forgetCoroutine))
+        {
+            StopCoroutine(_forgetCoroutine);
+            forgettingRoutines.Remove(targetStimuli);
+
+        }
+    }
     IEnumerator ForgetStimuli(PerceptionStimuli stimuli)
     {
         yield return new WaitForSeconds(forgettingTime);
@@ -70,4 +83,5 @@ public abstract class SenseComponent : MonoBehaviour
     {
         DrawDebug();
     }
+
 }
