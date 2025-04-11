@@ -8,6 +8,8 @@ public class Player : MonoBehaviour, ITeamInterface
     [SerializeField] JoyStick moveStick;
     [SerializeField] JoyStick aimStick;
     [SerializeField] float moveSpeed = 20f;
+    [SerializeField] float maxMoveSpeed = 80f;
+    [SerializeField] float minMoveSpeed = 5f;
     [SerializeField] float animTurnSpeed = 15f;
     private CharacterController characterController;
     [SerializeField] MovementComponent movementComponent;
@@ -18,7 +20,13 @@ public class Player : MonoBehaviour, ITeamInterface
 
     [Header("HeathAndDamage")]
     [SerializeField] HealthComponent healthComponent;
-    [SerializeField] PlayerHealthBar healthBar;
+    [SerializeField] PlayerValueGauge healthBar;
+
+
+    [Header("AbilityAndStamina")]
+    [SerializeField] AbilityComponent abilityComponent;
+    [SerializeField] PlayerValueGauge staminaBar;
+
 
     [Header("UI")]
     [SerializeField] UIManager uiManager;
@@ -43,6 +51,8 @@ public class Player : MonoBehaviour, ITeamInterface
         cameraController = FindObjectOfType<CameraController>();
         animator = GetComponent<Animator>();
         healthComponent.BroadcastHealthValueImmediately();
+
+
     }
     private void OnEnable()
     {
@@ -51,6 +61,9 @@ public class Player : MonoBehaviour, ITeamInterface
         aimStick.onStickTaped += StartSwichWeapon;
         healthComponent.onHealthChange += HealthChanged;
         healthComponent.onHealthEmpty += StartDeathSequence;
+
+        abilityComponent.onStaminaChange += StaminaChanged;
+        abilityComponent.BroadcastStaminaChangeImmediately();
 
     }
     private void OnDisable()
@@ -62,6 +75,13 @@ public class Player : MonoBehaviour, ITeamInterface
 
         healthComponent.onHealthChange -= HealthChanged;
         healthComponent.onHealthEmpty -= StartDeathSequence;
+
+        abilityComponent.onStaminaChange += StaminaChanged;
+    }
+
+    private void StaminaChanged(float newAmount, float maxAmout)
+    {
+        staminaBar.UpdateValue(newAmount, 0, maxAmout);
     }
 
     private void StartDeathSequence()
@@ -73,7 +93,7 @@ public class Player : MonoBehaviour, ITeamInterface
 
     private void HealthChanged(float health, float delta, float maxHealth)
     {
-        healthBar.UpdateHealth(health,delta, maxHealth);
+        healthBar.UpdateValue(health,delta, maxHealth);
     }
 
     public void AttackPoint()
@@ -159,5 +179,11 @@ public class Player : MonoBehaviour, ITeamInterface
         
         animatorTurnSpeed = Mathf.Lerp(animatorTurnSpeed, currentTurnSpeed, Time.deltaTime * animTurnSpeed);
         animator.SetFloat("turnSpeed", animatorTurnSpeed);
+    }
+
+    internal void AddMoveSpeed(float boostAmt)
+    {
+        moveSpeed += boostAmt;
+        moveSpeed = Mathf.Clamp(moveSpeed, minMoveSpeed, maxMoveSpeed);
     }
 }

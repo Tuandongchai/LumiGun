@@ -75,6 +75,11 @@ GameObject:
   - component: {fileID: 6658043251067390688}
   - component: {fileID: 5160415791974140600}
   - component: {fileID: -7021708010811111211}
+  - component: {fileID: -7311887063597412988}
+  - component: {fileID: 2143276546}
+  - component: {fileID: 2143276550}
+  - component: {fileID: 2143276554}
+  - component: {fileID: 2143276558}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -113,8 +118,15 @@ MonoBehaviour:
   moveStick: {fileID: 0}
   aimStick: {fileID: 0}
   moveSpeed: 5
-  turnSpeed: 8
+  maxMoveSpeed: 80
+  minMoveSpeed: 5
   animTurnSpeed: 15
+  movementComponent: {fileID: 2143276550}
+  TeamID: 1
+  inventoryComponent: {fileID: -7021708010811111211}
+  healthComponent: {fileID: 2143276554}
+  healthBar: {fileID: 0}
+  uiManager: {fileID: 0}
   mainCam: {fileID: 0}
 --- !u!143 &6658043251067390688
 CharacterController:
@@ -168,12 +180,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initWeaponsPrefabs:
-  - {fileID: -7895878435853480972, guid: 43e85779ea43a5040960c7496c444e3c, type: 3}
   - {fileID: 1625920945866023487, guid: 28446ce0841c1144fbb1ff3c8e9743b1, type: 3}
+  - {fileID: -7895878435853480972, guid: 43e85779ea43a5040960c7496c444e3c, type: 3}
   defaultWeaponSlot: {fileID: 1714391251568349270}
   weaponSlots:
   - {fileID: 6949423444038454037}
   - {fileID: 7457159213972870019}
+--- !u!114 &-7311887063597412988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673674295209229351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e040787a64dde6b478a5f040c38b074c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialAbilities:
+  - {fileID: 11400000, guid: 163f985313791794db022fb681e25272, type: 2}
+  stamina: 200
+  maxStamina: 200
+--- !u!114 &2143276546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673674295209229351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68646219258996b4c9b2e561598dd74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2143276550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673674295209229351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7796df07263745745ab4725f6800b28f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnSpeed: 8
+--- !u!114 &2143276554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673674295209229351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e032941d6e02c884d910b719c9bf9d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 200
+  maxHealth: 200
+--- !u!114 &2143276558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673674295209229351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08298702963de6478c9550952737825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 1714391251556747032}
+  DamageEmmisionColor: {r: 1, g: 1, b: 1, a: 0}
+  BlinkSpeed: 20
+  EmmisionColorPropertyName: _Addtion
+  HealthComponent: {fileID: 2143276554}
+  shaker: {fileID: 0}
 --- !u!1001 &1714391251568217274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -248,6 +333,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9500000, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a5674d01884853d4e8f2386a171e14d9, type: 3}
+--- !u!137 &1714391251556747032 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700002, guid: a5674d01884853d4e8f2386a171e14d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1714391251568217274}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1714391251568349270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400620, guid: a5674d01884853d4e8f2386a171e14d9,
