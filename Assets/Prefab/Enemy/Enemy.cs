@@ -13,7 +13,7 @@ public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterf
     [SerializeField] int TeamID = 2;
 
     Vector3 prevPos;
-
+    [SerializeField] Reward killReward;
     public int GetTeamID()
     {
         return TeamID;
@@ -80,9 +80,14 @@ public abstract class Enemy : MonoBehaviour, IBehaviorTreeInterface, ITeamInterf
 
     }
 
-    private void StartDeath()
+    private void StartDeath(GameObject killer)
     {
         TriggerDeathAnimation();
+        IRewardListener[] RewardListeners = killer.GetComponents<IRewardListener>();
+        foreach(IRewardListener listener in RewardListeners)
+        {
+            listener.Reward(killReward);
+        }
     }
     private void TriggerDeathAnimation()
     {

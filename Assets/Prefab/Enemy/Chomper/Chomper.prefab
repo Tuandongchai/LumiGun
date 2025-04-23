@@ -300,6 +300,10 @@ MonoBehaviour:
   behaviorTree: {fileID: 8923728408625872886}
   movementComponent: {fileID: 8251481918200694683}
   TeamID: 2
+  killReward:
+    healthReward: 0
+    creditReward: 20
+    staminaReward: 10
   damageComponent: {fileID: 709347287910851587}
 --- !u!114 &8923728408625872886
 MonoBehaviour:

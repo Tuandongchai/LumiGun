@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityComponent : MonoBehaviour
+public class AbilityComponent : MonoBehaviour, IPurchaseListener, IRewardListener
 {
     [SerializeField] Ability[] initialAbilities;
 
@@ -57,4 +57,20 @@ public class AbilityComponent : MonoBehaviour
         return true;
     }
 
+    public bool HandlePurchase(Object newPurchase)
+    {
+        Ability itemAsAbility = newPurchase as Ability;
+
+        if(itemAsAbility == null) return false;
+
+        GiveAbility(itemAsAbility);
+
+        return true;
+    }
+
+    public void Reward(Reward reward)
+    {
+        stamina = Mathf.Clamp(stamina + reward.staminaReward, 0, maxStamina);
+        BroadcastStaminaChangeImmediately();
+    }
 }

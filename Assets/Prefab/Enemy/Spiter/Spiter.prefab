@@ -219,6 +219,10 @@ MonoBehaviour:
   behaviorTree: {fileID: 6657328784026647525}
   movementComponent: {fileID: 5304956577516270869}
   TeamID: 2
+  killReward:
+    healthReward: 0
+    creditReward: 25
+    staminaReward: 30
   projectilePrefab: {fileID: 3584729212280991382, guid: 45937b3687e4cf1408ddaabf26314a97,
     type: 3}
   lauchPoint: {fileID: 2909996130327214647}

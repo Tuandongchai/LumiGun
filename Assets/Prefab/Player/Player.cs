@@ -15,10 +15,12 @@ public class Player : MonoBehaviour, ITeamInterface
     [SerializeField] MovementComponent movementComponent;
     [SerializeField] int TeamID = 1;
 
+    
+
     [Header("Inventory")]
     [SerializeField] InventoryComponent inventoryComponent;
 
-    [Header("HeathAndDamage")]
+    [Header("HeathAndDamage")] 
     [SerializeField] HealthComponent healthComponent;
     [SerializeField] PlayerValueGauge healthBar;
 
@@ -79,12 +81,13 @@ public class Player : MonoBehaviour, ITeamInterface
         abilityComponent.onStaminaChange += StaminaChanged;
     }
 
+   
     private void StaminaChanged(float newAmount, float maxAmout)
     {
         staminaBar.UpdateValue(newAmount, 0, maxAmout);
     }
 
-    private void StartDeathSequence()
+    private void StartDeathSequence(GameObject killer)
     {
         animator.SetLayerWeight(2, 1);
         animator.SetTrigger("Death");
@@ -142,7 +145,7 @@ public class Player : MonoBehaviour, ITeamInterface
     {
         Vector3 moveDir = StickInputToWorldDir(moveInput);
         characterController.Move(moveDir * Time.deltaTime * moveSpeed);
-
+  
         UpdateAim(moveDir);
 
         float forward = Vector3.Dot(moveDir, transform.forward);
