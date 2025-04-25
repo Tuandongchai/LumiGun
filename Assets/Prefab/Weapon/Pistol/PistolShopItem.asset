@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61fca8e0cb7d4ce48827a6c71cc5686c, type: 3}
   m_Name: PistolShopItem
   m_EditorClassIdentifier: 
-  Title: 
-  Price: 0
-  Item: {fileID: 0}
-  ItemIcon: {fileID: 0}
-  Description: 
+  Title: Pistol
+  Price: 20
+  Item: {fileID: 6205810930291906831, guid: 43e85779ea43a5040960c7496c444e3c, type: 3}
+  ItemIcon: {fileID: 21300000, guid: 2191dbc4b5ca04140b309640d4228d9c, type: 3}
+  Description: 'A basic hand gun
+
+
+    Damage: 5/s
+
+    Fire Rate: 1/s'

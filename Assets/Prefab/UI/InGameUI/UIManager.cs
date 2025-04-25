@@ -6,8 +6,9 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] CanvasGroup GameplayControl;
-    [SerializeField] CanvasGroup GameplayMenu;
+    [SerializeField] CanvasGroup PauseMenu;
     [SerializeField] CanvasGroup Shop;
+    [SerializeField] CanvasGroup DeathMenu;
 
     List<CanvasGroup> AllChildren = new List<CanvasGroup>();
 
@@ -53,9 +54,11 @@ public class UIManager : MonoBehaviour
         SetCanvasGroupEnabled(GameplayControl, enabled);
     }
 
-    private void SetGameplayMenuEnabled(CanvasGroup gameplayControl, bool enabled)
+    public void SwithToPauseMenu()
     {
-        SetCanvasGroupEnabled(GameplayMenu, enabled);
+        
+        SetCurrentActiveGrp(PauseMenu);
+        GamePlayStatic.SetGamePaused(true);
     }
     private void SetCanvasGroupEnabled(CanvasGroup grp, bool enabled)
     {
@@ -73,5 +76,11 @@ public class UIManager : MonoBehaviour
     {
         SetCurrentActiveGrp(GameplayControl);
         GamePlayStatic.SetGamePaused(false);
+    }
+
+    internal void SwithToDeathMenu()
+    {
+        SetCurrentActiveGrp(DeathMenu);
+        GamePlayStatic.SetGamePaused(true);
     }
 }

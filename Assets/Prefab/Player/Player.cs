@@ -101,12 +101,20 @@ public class Player : MonoBehaviour, ITeamInterface
 
     public void AttackPoint()
     {
-        inventoryComponent.GetActiveWeapon().Attack();
+        if (inventoryComponent.HasWeapon())
+        {
+            inventoryComponent.GetActiveWeapon().Attack();
+
+        }
     }
 
     private void StartSwichWeapon()
     {
-        animator.SetTrigger("switchWeapon");
+        if(inventoryComponent.HasWeapon())
+        {
+            animator.SetTrigger("switchWeapon");
+
+        }
 
     }
     public void SwichWeapon()
@@ -116,13 +124,19 @@ public class Player : MonoBehaviour, ITeamInterface
 
     private void AimStickUpdated(Vector2 inputVal)
     {
+
         aimInput = inputVal;
-        if (aimInput.magnitude > 0)
+        if (inventoryComponent.HasWeapon())
         {
-            animator.SetBool("attacking", true);
+            if (aimInput.magnitude > 0)
+            {
+                animator.SetBool("attacking", true);
+            }
+            else
+                animator.SetBool("attacking", false);
+
         }
-        else
-            animator.SetBool("attacking", false);
+
     }
     private void MoveStickUpdated(Vector2 inputValue)
     {
@@ -188,5 +202,9 @@ public class Player : MonoBehaviour, ITeamInterface
     {
         moveSpeed += boostAmt;
         moveSpeed = Mathf.Clamp(moveSpeed, minMoveSpeed, maxMoveSpeed);
+    }
+    public void DeathFinished()
+    {
+        uiManager.SwithToDeathMenu();
     }
 }

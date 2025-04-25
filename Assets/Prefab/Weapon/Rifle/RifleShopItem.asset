@@ -18,4 +18,7 @@ MonoBehaviour:
   ItemIcon: {fileID: 21300000, guid: 8ff1eb879bc7c9f43bc257a08c9012df, type: 3}
   Description: 'A power assual rifle with high fire rate and damage.
 
-'
+    Damage
+    Rate 40/s
+
+    Fire Rate 8/s'

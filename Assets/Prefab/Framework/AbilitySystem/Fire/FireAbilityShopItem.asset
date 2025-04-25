@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: FireAbilityShopItem
   m_EditorClassIdentifier: 
   Title: Fire Ability
-  Price: 120
+  Price: 100
   Item: {fileID: 11400000, guid: e4a2f9b4a07607149be0b5614c5d17e9, type: 2}
   ItemIcon: {fileID: 21300000, guid: 8f13be5cfa587d74fbc061630f702eef, type: 3}
-  Description: An ability that cast fire to range and deal constant damage
+  Description: 'An ability that cast fire to range and deal constant damage
+
+
+    Range:
+    20m
+
+    Damage: 60
+
+    Duration: 3s'

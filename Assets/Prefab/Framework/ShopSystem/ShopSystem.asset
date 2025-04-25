@@ -15,3 +15,6 @@ MonoBehaviour:
   shopItems:
   - {fileID: 11400000, guid: d4b571946fb3c73468a3e4dabc777167, type: 2}
   - {fileID: 11400000, guid: b4859b50ed760ed499c1b7ae4f9b4464, type: 2}
+  - {fileID: 11400000, guid: bfd72e84ea1d304498023e4cad69504a, type: 2}
+  - {fileID: 11400000, guid: b22bf9da9354f204383ccd86d51d85e0, type: 2}
+  - {fileID: 11400000, guid: ac4ea3d782ddb4746b12504f7730497c, type: 2}

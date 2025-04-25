@@ -106,6 +106,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spiter
       objectReference: {fileID: 0}
+    - target: {fileID: 1373548137083590951, guid: 98473ef23377766468900e4052a2dee9,
+        type: 3}
+      propertyPath: health
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1373548137083590951, guid: 98473ef23377766468900e4052a2dee9,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3991553853903463585, guid: 98473ef23377766468900e4052a2dee9,
         type: 3}
       propertyPath: m_RootOrder

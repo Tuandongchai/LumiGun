@@ -10,7 +10,12 @@ PrefabInstance:
     - target: {fileID: 1773342305684215467, guid: d22a8fe4e84f58c41bb55af649b1959e,
         type: 3}
       propertyPath: m_Name
-      value: Projectile
+      value: SpritterProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 2611784191820112625, guid: d22a8fe4e84f58c41bb55af649b1959e,
+        type: 3}
+      propertyPath: damage
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6871757822755389834, guid: d22a8fe4e84f58c41bb55af649b1959e,
         type: 3}
@@ -66,6 +71,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8165775980471970231, guid: d22a8fe4e84f58c41bb55af649b1959e,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 4.874215
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d22a8fe4e84f58c41bb55af649b1959e, type: 3}
