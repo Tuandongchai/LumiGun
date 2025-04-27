@@ -81,7 +81,10 @@ public class Player : MonoBehaviour, ITeamInterface
         abilityComponent.onStaminaChange += StaminaChanged;
     }
 
-   
+    private void Start()
+    {
+        GamePlayStatic.GameStarted();
+    }
     private void StaminaChanged(float newAmount, float maxAmout)
     {
         staminaBar.UpdateValue(newAmount, 0, maxAmout);

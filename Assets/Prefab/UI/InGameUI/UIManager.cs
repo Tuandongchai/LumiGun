@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] CanvasGroup PauseMenu;
     [SerializeField] CanvasGroup Shop;
     [SerializeField] CanvasGroup DeathMenu;
+    [SerializeField] CanvasGroup WinMenu;
+    [SerializeField] UIAudioPlayer uiAudioPlayer;
 
     List<CanvasGroup> AllChildren = new List<CanvasGroup>();
 
@@ -29,6 +31,14 @@ public class UIManager : MonoBehaviour
         {
             SetCurrentActiveGrp(AllChildren[0]);
         }
+        LevelManager.onLevelFinished += LevelFinished;
+    }
+
+    private void LevelFinished()
+    {
+        SetCurrentActiveGrp(WinMenu);
+        GamePlayStatic.SetGamePaused(true);
+        uiAudioPlayer.PlayWin();
     }
 
     private void SetCurrentActiveGrp(CanvasGroup canvasGroup)

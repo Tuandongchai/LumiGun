@@ -53,6 +53,8 @@ GameObject:
   - component: {fileID: -7598413971493262440}
   - component: {fileID: -2087276983235883472}
   - component: {fileID: 4530822259860437968}
+  - component: {fileID: 8693489703118234707}
+  - component: {fileID: 2329011566692134859}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -122,6 +124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+  hitAudio: {fileID: 8300000, guid: c1c63d14bc9d9497b8f9b39c4ea3b1c7, type: 3}
+  deathAudio: {fileID: 8300000, guid: 90b3931e4914ea74887ad53d46a8e1ec, type: 3}
+  volume: 1
 --- !u!95 &5057606373963879218
 Animator:
   serializedVersion: 5
@@ -205,6 +210,8 @@ MonoBehaviour:
   - {fileID: 1826297398}
   - {fileID: 1826297397}
   - {fileID: 1826297406}
+  detectionAudio: {fileID: 8300000, guid: c77d53e01c2becc47bb9198a46d990b7, type: 3}
+  volume: 1
 --- !u!114 &1826297406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +292,8 @@ MonoBehaviour:
   - {fileID: 8356709150189211679, guid: a4326003295ef764fb3c1b2e74d9ce94, type: 3}
   - {fileID: 5252644406940082833, guid: 2092a554e2e622a44bf665a09fee0d6f, type: 3}
   spawnTransform: {fileID: 2114733567804426593}
+  SpawnAudio: {fileID: 8300000, guid: c77d53e01c2becc47bb9198a46d990b7, type: 3}
+  volume: 1
 --- !u!114 &4530822259860437968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +304,114 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8d9218446b8f354bb73b65149dfb07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &8693489703118234707
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106918315451646410}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &2329011566692134859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106918315451646410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01637a13293f98d4a831b1b6cd837331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3383431925575012537

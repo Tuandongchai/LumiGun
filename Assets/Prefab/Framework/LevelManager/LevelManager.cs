@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,13 @@ public class LevelManager : ScriptableObject
 {
     [SerializeField] int mainMenuBuildIndex = 0;
     [SerializeField] int firstLevelBuildIndex = 1;
+
+    public delegate void OnLevelFinished();
+    public static event OnLevelFinished onLevelFinished;
+    internal static void levelFinished()
+    {
+        onLevelFinished?.Invoke();
+    }
 
     public void GoToMainMenu()
     {

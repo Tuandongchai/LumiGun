@@ -14,5 +14,6 @@ public class RangeWeapon : Weapon
 
         bulletVfx.transform.rotation = Quaternion.LookRotation(aimDir);
         bulletVfx.Emit(bulletVfx.emission.GetBurst(0).maxCount);
+        PlayWeaponAudio(); 
     }
 }

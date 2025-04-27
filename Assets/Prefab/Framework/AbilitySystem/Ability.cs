@@ -9,6 +9,10 @@ public abstract class Ability : ScriptableObject
     [SerializeField] float staminaCost = 10f;
     [SerializeField] float cooldownDuration = 2f;
 
+
+    [Header("Audio")]
+    [SerializeField] AudioClip AbilityAudio;
+    [SerializeField] float volume = 1f;
     public AbilityComponent AbilityComp
     {
         get { return abilityComponent; }
@@ -34,6 +38,8 @@ public abstract class Ability : ScriptableObject
             return false;
 
         StartAbilityCooldown();
+        GamePlayStatic.PlayAudioAtPlayer(AbilityAudio, volume);
+
         return true;
     }
 

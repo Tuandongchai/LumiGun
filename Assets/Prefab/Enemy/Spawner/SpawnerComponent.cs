@@ -6,6 +6,10 @@ public class SpawnerComponent : MonoBehaviour
 {
     [SerializeField] GameObject[] objectsToSpawn;
     [SerializeField] Transform spawnTransform;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip SpawnAudio;
+    [SerializeField] float volume=1f;
     Animator animator;
 
     private void Start()
@@ -21,9 +25,11 @@ public class SpawnerComponent : MonoBehaviour
             animator.SetTrigger("Spawn");
         }
         else
-        {
+        { 
             SpawnImpl();
         }
+        Vector3 spawnAudioLoc = transform.position;
+        GamePlayStatic.PlayAudioAtLoc(SpawnAudio, spawnAudioLoc, volume);
         return true;
     }
     public void SpawnImpl()

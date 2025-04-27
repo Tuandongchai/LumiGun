@@ -6,6 +6,11 @@ using UnityEngine;
 public class PerceptionComponent : MonoBehaviour
 {
     [SerializeField] private SenseComponent[] senses;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip detectionAudio;
+    [SerializeField] float volume=1f;
+
     LinkedList<PerceptionStimuli> currentlyPerceivedStimulis=new LinkedList<PerceptionStimuli>();
 
     PerceptionStimuli targetStimuli;
@@ -50,6 +55,8 @@ public class PerceptionComponent : MonoBehaviour
             {
                 targetStimuli = hightestStimuli;
                 onPerceptionTargetChanged?.Invoke(targetStimuli.gameObject, true);
+                Vector3 audioPos = transform.position;
+                GamePlayStatic.PlayAudioAtLoc(detectionAudio, audioPos, volume);
             }
         }
         else
